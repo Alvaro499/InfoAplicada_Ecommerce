@@ -8,8 +8,16 @@
     "build": "evershop build",
     "start": "evershop start"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Alvaro499/InfoAplicada_Ecommerce.git"
+  },
   "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Alvaro499/InfoAplicada_Ecommerce/issues"
+  },
+  "homepage": "https://github.com/Alvaro499/InfoAplicada_Ecommerce#readme",
   "description": "",
   "dependencies": {
     "@evershop/evershop": "^2.0.1"
