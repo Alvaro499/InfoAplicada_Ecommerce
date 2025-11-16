@@ -20,6 +20,7 @@
   "homepage": "https://github.com/Alvaro499/InfoAplicada_Ecommerce#readme",
   "description": "",
   "dependencies": {
-    "@evershop/evershop": "^2.0.1"
+    "@evershop/evershop": "^2.0.1",
+    "@google-cloud/storage": "^7.17.3"
   }
 }

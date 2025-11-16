@@ -1,1 +1,16 @@
+#Proyecto Producción EverShop
 node_modules
+.log
+.env
+.evershop
+app.yaml
+
+
+
+#Selenium tests
+/selenium-tests/.pytest_cache/
+/selenium-tests/pages/__pycache__/
+/selenium-tests/tests/__pycache__/
+/selenium-tests/utils/__pycache__/
+/selenium-tests/venv/
+
