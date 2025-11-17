@@ -20,19 +20,14 @@ steps:
         apt-get update
         apt-get install -y wget gnupg unzip
 
-        # Descargar Google Chrome directamente (método moderno)
         wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 
-        # Instalar Chrome desde el archivo .deb
         apt-get install -y ./google-chrome-stable_current_amd64.deb
 
-        # Verificar instalación
         google-chrome --version || echo "Chrome NO instalado"
 
-        # Instalar dependencias Python (Selenium)
         pip install -r selenium-tests/requirements.txt
 
-        # Ejecutar pruebas Selenium (headless en CI)
         pytest selenium-tests/tests --maxfail=1 --disable-warnings -q
 
   # 4) Desplegar App Engine
