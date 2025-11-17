@@ -36,11 +36,3 @@ steps:
 
 options:
   logging: CLOUD_LOGGING_ONLY
-  diskSizeGb: 100
-  cache:
-    key: "cache-node-python"
-    paths:
-      - "/workspace/node_modules"
-      - "/root/.cache/pip"
-      - "/root/.cache/selenium"
-      - "/workspace/.evershop/build"
