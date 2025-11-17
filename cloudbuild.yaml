@@ -9,7 +9,7 @@ steps:
     entrypoint: npm
     args: ["run", "build"]
 
-  # 3 y 4) Instalar Chrome + Python + Selenium
+  # 3) Instalar Chrome + Python + Selenium y Ejecutar Pruebas
   - name: python:3.11
     entrypoint: bash
     env:
@@ -20,17 +20,22 @@ steps:
         apt-get update
         apt-get install -y wget gnupg unzip
 
-        wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add -
-        echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list
-        apt-get update
-        apt-get install -y google-chrome-stable
+        # Descargar Google Chrome directamente (método moderno)
+        wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 
-        pip install --upgrade pip
+        # Instalar Chrome desde el archivo .deb
+        apt-get install -y ./google-chrome-stable_current_amd64.deb
+
+        # Verificar instalación
+        google-chrome --version || echo "Chrome NO instalado"
+
+        # Instalar dependencias Python (Selenium)
         pip install -r selenium-tests/requirements.txt
 
+        # Ejecutar pruebas Selenium (headless en CI)
         pytest selenium-tests/tests --maxfail=1 --disable-warnings -q
 
-  # 5) Desplegar App Engine
+  # 4) Desplegar App Engine
   - name: gcr.io/cloud-builders/gcloud
     args: ["app", "deploy", "app.yaml", "--quiet"]
 
