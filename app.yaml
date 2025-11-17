@@ -1,0 +1,17 @@
+runtime: nodejs20
+env: standard
+
+instance_class: F1
+
+handlers:
+  - url: /.*
+    script: auto
+
+env_variables:
+  NODE_ENV: production
+  DB_HOST: "34.44.1.120"
+  DB_PORT: "5432"
+  DB_NAME: "my_evershop"
+  DB_USER: "postgres"
+  DB_PASSWORD: "Aplicada-ecommerce25"
+  DB_SSLMODE: "disable"
