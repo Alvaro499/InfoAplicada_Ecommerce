@@ -1,0 +1,31 @@
+steps:
+  # 1) Instalar dependencias Node
+  - name: node:18
+    entrypoint: npm
+    args: ["install"]
+
+  # 2) Construir EverShop
+  - name: node:18
+    entrypoint: npm
+    args: ["run", "build"]
+
+  # 3) Instalar dependencias de Python (Selenium)
+  - name: python:3.11
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        pip install --upgrade pip
+        pip install -r selenium-tests/requirements.txt
+
+  # 4) Ejecutar pruebas de Selenium con pytest
+  - name: python:3.11
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        pytest selenium-tests/tests --maxfail=1 --disable-warnings -q
+
+ # 5) Desplegar a App Engine
+  - name: gcr.io/cloud-builders/gcloud
+    args: ["app", "deploy", "app.yaml", "--quiet"]
