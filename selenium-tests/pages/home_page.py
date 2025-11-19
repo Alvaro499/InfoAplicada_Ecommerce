@@ -19,5 +19,14 @@ class HomePage:
         return self.driver.find_element(By.XPATH, "//a[contains(., 'Shop men')]")
 
     def first_home_product(self):
-        # Primer producto que aparece en Home
         return self.driver.find_element(By.CSS_SELECTOR, ".product-thumbnail-listing a")
+
+    def login_icon(self):
+        #Antes de iniciar sesión
+         return self.driver.find_element(By.XPATH, "//a[contains(@href, '/account/login')]")
+
+    def account_icon(self):
+        # Despues de iniciar sesión
+        return self.driver.find_element(By.XPATH, "//a[contains(@href, '/account')]")
+
+
