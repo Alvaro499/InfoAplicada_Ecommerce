@@ -17,14 +17,17 @@ from selenium.webdriver.chrome.options import Options
 def create_driver():
     options = Options()
 
-    # Detectar si estamos en Cloud Build (CI)
     running_in_ci = os.getenv("CI", "false").lower() == "true"
 
     if running_in_ci:
-        # SOLO EN CI: modo headless
+        # Desactivar auto-descarga de Selenium
+        os.environ["SE_CHROMEDRIVER_SKIP_DOWNLOAD"] = "1"
+        os.environ["SE_SKIPPED_DRIVERS"] = "chromedriver"
+        os.environ["webdriver.chrome.driver"] = "/usr/bin/chromedriver"
+
+        # Flags para headless en Cloud Build
         options.add_argument("--headless=new")
         options.add_argument("--no-sandbox")
         options.add_argument("--disable-dev-shm-usage")
 
-    # En local NO se activa headless (sale ventana normal)
     return webdriver.Chrome(options=options)
