@@ -1,15 +1,12 @@
 steps:
-  # 1) Instalar dependencias Node
   - name: node:18
     entrypoint: npm
     args: ["install"]
 
-  # 2) Construir EverShop
   - name: node:18
     entrypoint: npm
     args: ["run", "build"]
 
-  # 3) Instalar Chrome + Python + Selenium y Ejecutar Pruebas
   - name: python:3.11
     entrypoint: bash
     env:
@@ -21,16 +18,21 @@ steps:
         apt-get install -y wget gnupg unzip
 
         wget https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_121.0.6167.85-1_amd64.deb
-        
         apt-get install -y ./google-chrome-stable_121.0.6167.85-1_amd64.deb
-        
-        google-chrome --version || echo "Chrome NO instalado"
+        google-chrome --version
+
+        wget https://chromedriver.storage.googleapis.com/121.0.6167.85/chromedriver_linux64.zip
+        unzip chromedriver_linux64.zip
+        mv chromedriver /usr/bin/chromedriver
+        chmod +x /usr/bin/chromedriver
+        chromedriver --version
+
+        rm -rf /builder/home/.cache/selenium
 
         pip install -r selenium-tests/requirements.txt
 
         pytest selenium-tests/tests --maxfail=1 --disable-warnings -q
 
-  # 4) Desplegar App Engine
   - name: gcr.io/cloud-builders/gcloud
     args: ["app", "deploy", "app.yaml", "--quiet"]
 
